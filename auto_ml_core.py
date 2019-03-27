@@ -107,6 +107,76 @@ class ModelBuilder(object):
         return estim
 
 
+class Models(object):
+    def __init__(self, estimator, dataset_dict):
+        # self._ModelBuilder = ModelBuilder
+
+        self.dataset_dict = dataset_dict
+        self.estimator = estimator
+        self.result = {}
+        self.result_verbose = {}
+
+    def fit(self, verbose=False):
+        X_train = self.dataset_dict['X_train']
+        y_train = self.dataset_dict['y_train']
+        return self._fit(X_train, y_train, verbose=verbose)
+
+    def _fit(self, X_train, y_train, verbose=False):
+        if verbose:
+            iterator = self.estimator.fit_iter(X_train, y_train)
+        else:
+            iterator = self.estimator.fit(X_train, y_train)
+        return iterator
+
+    def fit_and_return(self, verbose=False):
+        iterator = self.fit(verbose=verbose)
+        if verbose:
+            n_trails = 0
+            for model in iterator:
+                X_train = self.dataset_dict['X_train']
+                y_train = self.dataset_dict['y_train']
+
+                X_test = self.dataset_dict['X_test']
+                y_test = self.dataset_dict['y_test']
+                train_score = self.estimator.score(X_train, y_train)
+                test_score = self.estimator.score(X_test, y_test)
+                print('Trails {} | Training Score : {} | Testing Score : {}'.format(n_trails, train_score, test_score))
+
+                n_trails += 1
+                self.result = self.best_model()
+                self.result['best_score'] = self.best_score
+
+                self.result['train_score'] = train_score
+                self.result['test_score'] = test_score
+
+                self.result_verbose['{}'.format(n_trails)] = self.result
+
+                return self.result_verbose
+
+        else:
+
+            self.result = self.best_model()
+            self.result['best_score'] = self.best_score
+
+            return self.result
+
+    @property
+    def best_score(self):
+        X_test = self.dataset_dict['X_test']
+        y_test = self.dataset_dict['y_test']
+
+        return self.estimator.score(X_test, y_test)
+
+    # def _best_score(self, X_test, y_test):
+    #     return self.estimator.score(X_test, y_test)
+
+    def retrain_best_model_on_full_data(self, X_train, y_train):
+        return self.estimator.retrain_best_model_on_full_data(X_train, y_train)
+
+    def best_model(self):
+        return self.estimator.best_model()
+
+
 def test_dataset():
     return DataSetParser.iris_test_dataset()
 
@@ -139,9 +209,19 @@ def create_estimator(dataset_dict):
 
 
 if __name__ == '__main__':
-    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 200, 'trial_timeout': 120, 'seed': None}
+    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5, 'trial_timeout': 120, 'seed': None}
 
-    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 200, 'trial_timeout': 120,
+    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5, 'trial_timeout': 12,
                          'seed': None}
 
-    print(create_estimator(test_dataset()))
+    estimator = ModelBuilder.create_estimator(params_classifier)
+    m = Models(estimator, test_dataset())
+    try:
+        m.fit()
+    except Exception as e:
+        print(e)
+        raise Exception(e)
+    else:
+        print(m.fit_and_return())
+    print(1)
+    # print(create_estimator(test_dataset()))
