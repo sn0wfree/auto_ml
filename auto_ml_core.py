@@ -4,46 +4,18 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_
 
 from hyperopt import tpe
 import numpy as np
-import time
+from tools.conn_try_again import conn_try_again
+from tools.typeassert import typeassert
+import copy
 
 max_retries = 5
 default_retry_delay = 1
 
 
-def conn_try_again(max_retries=5, default_retry_delay=1):
-    """
-    retry function
-    :param max_retries:
-    :param default_retry_delay:
-    :return:
-    """
-
-    def _conn_try_again(function):
-        RETRIES = 0
-        # 重试的次数
-        count = {"num": RETRIES}
-
-        def wrapped(*args, **kwargs):
-            try:
-                return function(*args, **kwargs)
-            except Exception as err:
-                if count['num'] < max_retries:
-                    time.sleep(default_retry_delay)
-                    count['num'] += 1
-                    return wrapped(*args, **kwargs)
-                else:
-                    status = 'Error'
-                    sel = 'Error'
-                    raise Exception(err)
-
-        return wrapped
-
-    return _conn_try_again
-
-
 class DataSetParser(object):
 
     @staticmethod
+    @typeassert(dataset_dict=dict)
     def datadict_parser(dataset_dict):
         X_train = dataset_dict['X_train']
         X_test = dataset_dict['X_test']
@@ -74,6 +46,7 @@ class DataSetParser(object):
 class ModelBuilder(object):
 
     @classmethod
+    @typeassert(object, params=dict)
     def create_estimator(cls, params):
         """
 
@@ -86,9 +59,19 @@ class ModelBuilder(object):
             if 'classifier' in params.keys():
                 raise ValueError('params obtain two similar parameters (regressor and classifier) ')
             else:
-                return cls._create_estimator_random_regressor(**params)
+
+                params_copy = copy.deepcopy(params)
+                params_copy.pop('regressor')
+                print('regressor', params_copy)
+
+                return cls._create_estimator_random_regressor(**params_copy)
         elif 'classifier' in params.keys():
-            return cls._create_estimator_random_classifier(**params)
+
+            params_copy = copy.deepcopy(params)
+            params_copy.pop('classifier')
+            print('classifier', params_copy)
+
+            return cls._create_estimator_random_classifier(**params_copy)
 
     @staticmethod
     def _create_estimator_random_regressor(regressor=any_regressor('my_rgs'),
@@ -96,7 +79,43 @@ class ModelBuilder(object):
                                            max_evals=100,
                                            trial_timeout=120,
                                            seed=None,
-                                           algo=tpe.suggest):
+                                           algo=tpe.suggest, fit_increment=1):
+
+        """
+         regressors = [
+        svr(name + '.svr'),
+        knn_regression(name + '.knn'),
+        random_forest_regression(name + '.random_forest'),
+        extra_trees_regression(name + '.extra_trees'),
+        ada_boost_regression(name + '.ada_boost'),
+        gradient_boosting_regression(name + '.grad_boosting'),
+        sgd_regression(name + '.sgd')
+    ]
+    classifiers = [
+        svc(name + '.svc'),
+        knn(name + '.knn'),
+        random_forest(name + '.random_forest'),
+        extra_trees(name + '.extra_trees'),
+        ada_boost(name + '.ada_boost'),
+        gradient_boosting(name + '.grad_boosting', loss='deviance'),
+        sgd(name + '.sgd')
+    ]
+
+    if xgboost:
+        classifiers.append(xgboost_classification(name + '.xgboost'))
+
+    if xgboost:
+        regressors.append(xgboost_regression(name + '.xgboost'))
+
+        :param regressor:
+        :param preprocessing:
+        :param max_evals:
+        :param trial_timeout:
+        :param seed:
+        :param algo:
+        :return:
+        """
+
         estim = HyperoptEstimator(regressor=regressor,
                                   preprocessing=preprocessing,
                                   algo=algo,
@@ -108,7 +127,7 @@ class ModelBuilder(object):
                                   loss_fn=None,
                                   continuous_loss_fn=False,
                                   verbose=False,
-                                  fit_increment=1,
+                                  fit_increment=fit_increment,
                                   fit_increment_dump_filename=None,
                                   seed=seed,
                                   use_partial_fit=False,
@@ -123,6 +142,31 @@ class ModelBuilder(object):
                                             trial_timeout=120,
                                             seed=None,
                                             algo=tpe.suggest):
+
+        """
+
+        classifiers = [
+        svc(name + '.svc'),
+        knn(name + '.knn'),
+        random_forest(name + '.random_forest'),
+        extra_trees(name + '.extra_trees'),
+        ada_boost(name + '.ada_boost'),
+        gradient_boosting(name + '.grad_boosting', loss='deviance'),
+        sgd(name + '.sgd')
+    ]
+
+    if xgboost:
+        classifiers.append(xgboost_classification(name + '.xgboost'))
+
+
+        :param classifier:
+        :param preprocessing:
+        :param max_evals:
+        :param trial_timeout:
+        :param seed:
+        :param algo:
+        :return:
+        """
         estim = HyperoptEstimator(classifier=classifier,
                                   preprocessing=preprocessing,
                                   algo=algo,
@@ -142,7 +186,8 @@ class ModelBuilder(object):
         return estim
 
 
-class Models(object):
+class Model(object):
+    @typeassert(object, estimator=object, dataset_dict=dict)
     def __init__(self, estimator, dataset_dict):
         # self._ModelBuilder = ModelBuilder
 
@@ -152,41 +197,42 @@ class Models(object):
         self.result_verbose = {}
 
     @conn_try_again(max_retries=max_retries, default_retry_delay=default_retry_delay)
-    def _fit(self, X_train, y_train, verbose=False):
-        if verbose:
+    def _fit(self, X_train, y_train, verbose_debug=False):
+        if verbose_debug:
+            print('fit_iter')
             iterator = self.estimator.fit_iter(X_train, y_train)
         else:
             iterator = self.estimator.fit(X_train, y_train)
         return iterator
 
-    def fit(self, verbose=False):
+    def fit(self, verbose_debug=False):
         """
         because of some model can be fit with given data, thus this fit function is unsafe function
-        :param verbose:
+        :param verbose_debug:
         :return:
         """
         X_train = self.dataset_dict['X_train']
         y_train = self.dataset_dict['y_train']
-        return self._fit(X_train, y_train, verbose=verbose)
+        return self._fit(X_train, y_train, verbose_debug=verbose_debug)
 
     @conn_try_again(max_retries=max_retries, default_retry_delay=default_retry_delay)
-    def fit_and_return(self, verbose=False):
-        iterator = self.fit(verbose=verbose)
-        if verbose:
+    def fit_and_return(self, verbose_debug=False):
+        iterator = self.fit(verbose_debug=verbose_debug)
+        if verbose_debug:
             n_trails = 0
             for model in iterator:
-                X_train = self.dataset_dict['X_train']
-                y_train = self.dataset_dict['y_train']
-
-                X_test = self.dataset_dict['X_test']
-                y_test = self.dataset_dict['y_test']
-                train_score = self.estimator.score(X_train, y_train)
-                test_score = self.estimator.score(X_test, y_test)
+                # X_train = self.dataset_dict['X_train']
+                # y_train = self.dataset_dict['y_train']
+                #
+                # X_test = self.dataset_dict['X_test']
+                # y_test = self.dataset_dict['y_test']
+                train_score = self.train_score
+                test_score = self.test_score
                 print('Trails {} | Training Score : {} | Testing Score : {}'.format(n_trails, train_score, test_score))
 
                 n_trails += 1
                 self.result = self.best_model()
-                self.result['best_score'] = self.best_score
+                self.result['best_test_score'] = self.best_test_score
 
                 self.result['train_score'] = train_score
                 self.result['test_score'] = test_score
@@ -198,16 +244,32 @@ class Models(object):
         else:
 
             self.result = self.best_model()
-            self.result['best_score'] = self.best_score
+
+            self.result['best_train_score'] = self.train_score
+            self.result['best_test_score'] = self.best_test_score
 
             return self.result
 
     @property
-    def best_score(self):
+    def train_score(self):
+        X_train = self.dataset_dict['X_train']
+        y_train = self.dataset_dict['y_train']
+        return self.estimator.score(X_train, y_train)
+
+    @property
+    def test_score(self):
         X_test = self.dataset_dict['X_test']
         y_test = self.dataset_dict['y_test']
 
         return self.estimator.score(X_test, y_test)
+
+    @property
+    def best_train_score(self):
+        return self.train_score
+
+    @property
+    def best_test_score(self):
+        return self.test_score
 
     # def _best_score(self, X_test, y_test):
     #     return self.estimator.score(X_test, y_test)
@@ -219,51 +281,77 @@ class Models(object):
         return self.estimator.best_model()
 
 
+class Models(object):
+
+    @typeassert(object, dict, dict)
+    def __init__(self, params, datatset):
+        self.params = params
+        self.datatset = datatset
+        self._model = None
+
+    def fit_and_return(self, verbose_debug=False):
+        estimator = self._create_estimator()
+        self._model = Model(estimator, self.datatset)
+        return self._model.fit_and_return(verbose_debug=verbose_debug)
+
+    @typeassert(object, int)
+    def _create_estimator(self, multi=None):
+        if multi is None:
+            estimator = ModelBuilder.create_estimator(self.params)
+            return estimator
+        else:
+            raise ValueError('incomplete part!')
+            return [self._ModelBuilder.create_estimator(self.params) for _ in range(multi)]
+
+
 def test_dataset():
     return DataSetParser.iris_test_dataset()
 
 
-def create_estimator(dataset_dict):
-    # Instantiate a HyperoptEstimator with the search space and number of evaluations
-    X_train, X_test, y_train, y_test = DataSetParser.datadict_parser(dataset_dict)
+# def create_estimator(dataset_dict):
+#     # Instantiate a HyperoptEstimator with the search space and number of evaluations
+#     X_train, X_test, y_train, y_test = DataSetParser.datadict_parser(dataset_dict)
+#
+#     estim = HyperoptEstimator(classifier=any_classifier('my_clf'),
+#                               preprocessing=any_preprocessing('my_pre'),
+#                               algo=tpe.suggest,
+#                               max_evals=100,
+#                               trial_timeout=120)
+#
+#     # Search the hyperparameter space based on the data
+#
+#     estim.fit(X_train, y_train)
+#
+#     # Show the results
+#     estim.retrain_best_model_on_full_data(X_train, y_train)
+#     best_score = estim.score(X_test, y_test)
+#     print(best_score)
+#
+#     result_dict = estim.best_model()
+#
+#     result_dict['best_score'] = best_score
+#
+#     return result_dict
+#     # 1.0
 
-    estim = HyperoptEstimator(classifier=any_classifier('my_clf'),
-                              preprocessing=any_preprocessing('my_pre'),
-                              algo=tpe.suggest,
-                              max_evals=100,
-                              trial_timeout=120)
-
-    # Search the hyperparameter space based on the data
-
-    estim.fit(X_train, y_train)
-
-    # Show the results
-    estim.retrain_best_model_on_full_data(X_train, y_train)
-    best_score = estim.score(X_test, y_test)
-    print(best_score)
-
-    result_dict = estim.best_model()
-
-    result_dict['best_score'] = best_score
-
-    return result_dict
-    # 1.0
+class ModelStore(object):
+    @staticmethod
+    def grab_result(result):
+        return result
 
 
 if __name__ == '__main__':
-    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5, 'trial_timeout': 120, 'seed': None}
+    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 15,
+                        'trial_timeout': 100, 'seed': 1}
 
-    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5, 'trial_timeout': 12,
-                         'seed': None}
+    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 15,
+                         'trial_timeout': 100, 'seed': 1}
 
-    estimator = ModelBuilder.create_estimator(params_classifier)
-    m = Models(estimator, test_dataset())
-    try:
-        m.fit()
-    except Exception as e:
-        print(e)
-        raise Exception(e)
-    else:
-        print(m.fit_and_return())
-    print(1)
+    # estimator = ModelBuilder.create_estimator(params_regressor)
+    dataset_dict = test_dataset()
+    m = Models(params_classifier, dataset_dict)
+
+    print(m.fit_and_return(verbose_debug=False))
+
+    print(0)
     # print(create_estimator(test_dataset()))
