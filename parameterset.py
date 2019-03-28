@@ -21,6 +21,5 @@ Preprocessing = ['pca', 'one_hot_encoder', 'standard_scaler',
                  'min_max_scaler', 'normalizer', 'ts_lagselector', 'tfidf',
                  'rbm', 'colkmeans']
 
-
-if __name__=='__main__':
+if __name__ == '__main__':
     pass
