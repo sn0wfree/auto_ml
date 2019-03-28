@@ -40,7 +40,7 @@ class ModelStore(object):
         :return:
         """
         with open(files_, 'rb') as f:
-            strings = f.readlines()
+            strings = f.read()
         return strings
 
     @staticmethod
@@ -65,5 +65,21 @@ class ModelStore(object):
 
 
 if __name__ == '__main__':
-    print(ParametersHolder.Regressors)
+    from auto_ml_core import test_dataset, Models
+
+    from parameter_parser import ModelStore
+
+    # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
+    #                      'trial_timeout': 100, 'seed': 1}
+    # dataset_dict = test_dataset()
+    # m = Models(params_classifier, dataset_dict)
+    #
+    # mod = m.fit_and_return(verbose_debug=False)
+
+    files_ = 'test.model'
+    strings = ModelStore._force_read(files_)
+    
+    M2 = ModelStore._force_read_from_string(strings)
+    print(M2)
+
     pass
