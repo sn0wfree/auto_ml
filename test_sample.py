@@ -4,7 +4,8 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 from auto_ml_core import Models, test_dataset
-
+import requests
+from parameter_parser import ModelStore
 regressors = {'svr': 1,
               'knn': 2,
               'random_forest': 3,
@@ -66,13 +67,37 @@ def test():
     #           warm_start=False), 'preprocs': (), 'ex_preprocs': ()}
 
 
+def test_upload_file(url='http://0.0.0.0:8279/upload_file',
+                     files_='test.model'):
+    strings = ModelStore._force_read(files_)
+
+    # "text/plain"
+    data = {'file': ('model.model', strings, "application/octet-stream")}
+    # M2 = ModelStore._force_read_from_string(strings)
+
+    r = requests.post(url, files=data)
+
+    print(r.text)
+
+
+def test_auto_ml(url='http://0.0.0.0:8279/auto_ml'):
+    import json
+    params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
+                        'trial_timeout': 100, 'seed': 1}
+    # {'regressor': 'Null', 'preprocessing': 'Null', 'max_evals': 5,
+    #  'trial_timeout': 100, 'seed': 1}
+    # para = {'parameters': ('parameter', json.dumps(params_regressor), 'application/json')}
+    print(json.dumps(params_regressor))
+    r = requests.post(url, params=params_regressor)
+    print(r.text)
 if __name__ == '__main__':
-    from hyperopt import fmin, tpe, hp
-
-    best = fmin(fn=lambda x: x ** 2,
-                space=hp.uniform('x', -10, 10),
-                algo=tpe.suggest,
-                max_evals=100)
-    print(best)
-
-    pass
+    # from hyperopt import fmin, tpe, hp
+    #
+    # best = fmin(fn=lambda x: x ** 2,
+    #             space=hp.uniform('x', -10, 10),
+    #             algo=tpe.suggest,
+    #             max_evals=100)
+    # print(best)
+    #
+    # pass
+    test_auto_ml()
