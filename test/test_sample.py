@@ -69,43 +69,52 @@ def test():
 
 def test_upload_file(url='http://0.0.0.0:8279/upload_file',
                      files_='test.model'):
-    strings = ModelStore._force_read(files_)
+    paths = __file__.split(__file__.split('/')[-1])[0]
+    print(paths)
+    strings = ModelStore._force_read(paths + files_)
 
     # "text/plain"
-    data = {'file': ('model.model', strings, "application/octet-stream")}
+    data = {'file': (files_, strings, "application/octet-stream")}
     # M2 = ModelStore._force_read_from_string(strings)
 
     r = requests.post(url, files=data)
-
     print(r.text)
 
 
-def test_auto_ml(url='http://0.0.0.0:8279/auto_ml'):
+def test_check_file_exist(url='http://0.0.0.0:8279/check_file/'):
+    dataid = '95084a6f80643282ac94b0c11c28bbd0'
+
+    r = requests.get(url + dataid)
+    print(r.text)
+    pass
+
+
+def test_auto_ml(url='http://0.0.0.0:8279/auto_ml/95084a6f80643282ac94b0c11c28bbd0'):
     import json
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
     # {'regressor': 'Null', 'preprocessing': 'Null', 'max_evals': 5,
     #  'trial_timeout': 100, 'seed': 1}
     # para = {'parameters': ('parameter', json.dumps(params_regressor), 'application/json')}
-    print(json.dumps(params_regressor))
+    # print(json.dumps(params_regressor))
     r = requests.post(url, params=params_regressor)
     print(r.text)
 
 
 if __name__ == '__main__':
-    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
-                        'trial_timeout': 100, 'seed': 1}
-
-    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
-                         'trial_timeout': 100, 'seed': 1}
-
-    # estimator = ModelBuilder.create_estimator(params_regressor)
-    modeldict = test(params_regressor)
-    files_ = 'test.model'
-    ModelStore._save(modeldict, files_)
-    modeldict2 = ModelStore._read(files_, protocol=2)
-
-    print(modeldict, modeldict2)
+    # params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
+    #                     'trial_timeout': 100, 'seed': 1}
+    #
+    # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
+    #                      'trial_timeout': 100, 'seed': 1}
+    #
+    # # estimator = ModelBuilder.create_estimator(params_regressor)
+    # modeldict = test(params_regressor)
+    # files_ = 'test.model'
+    # ModelStore._save(modeldict, files_)
+    # modeldict2 = ModelStore._read(files_, protocol=2)
+    #
+    # print(modeldict, modeldict2)
     # from hyperopt import fmin, tpe, hp
     #
     # best = fmin(fn=lambda x: x ** 2,
@@ -115,4 +124,4 @@ if __name__ == '__main__':
     # print(best)
     #
     # pass
-    test_auto_ml()
+    test_check_file_exist()
