@@ -1,5 +1,5 @@
 # coding=utf8
-
+import pickle
 from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_regressor
 
 from hyperopt import tpe
@@ -334,10 +334,7 @@ def test_dataset():
 #     return result_dict
 #     # 1.0
 
-class ModelStore(object):
-    @staticmethod
-    def grab_result(result):
-        return result
+
 
 
 if __name__ == '__main__':
