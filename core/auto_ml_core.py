@@ -335,8 +335,6 @@ def test_dataset():
 #     # 1.0
 
 
-
-
 if __name__ == '__main__':
     params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 15,
                         'trial_timeout': 100, 'seed': 1}

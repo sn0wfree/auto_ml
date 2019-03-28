@@ -1,8 +1,7 @@
 # coding=utf8
 
-from auto_ml_core import test_dataset, Models
-import pickle
-from parameter_parser import ModelStore
+from core.auto_ml_core import test_dataset, Models
+from core.parameter_parser import ModelStore
 
 
 def test(params):

@@ -3,9 +3,9 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing
 from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
-from auto_ml_core import Models, test_dataset
 import requests
-from parameter_parser import ModelStore
+from core.parameter_parser import ModelStore
+
 regressors = {'svr': 1,
               'knn': 2,
               'random_forest': 3,
@@ -90,6 +90,8 @@ def test_auto_ml(url='http://0.0.0.0:8279/auto_ml'):
     print(json.dumps(params_regressor))
     r = requests.post(url, params=params_regressor)
     print(r.text)
+
+
 if __name__ == '__main__':
     # from hyperopt import fmin, tpe, hp
     #

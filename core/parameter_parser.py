@@ -65,9 +65,7 @@ class ModelStore(object):
 
 
 if __name__ == '__main__':
-    from auto_ml_core import test_dataset, Models
-
-    from parameter_parser import ModelStore
+    from core.parameter_parser import ModelStore
 
     # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
     #                      'trial_timeout': 100, 'seed': 1}
