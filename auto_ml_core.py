@@ -4,6 +4,41 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_
 
 from hyperopt import tpe
 import numpy as np
+import time
+
+max_retries = 5
+default_retry_delay = 1
+
+
+def conn_try_again(max_retries=5, default_retry_delay=1):
+    """
+    retry function
+    :param max_retries:
+    :param default_retry_delay:
+    :return:
+    """
+
+    def _conn_try_again(function):
+        RETRIES = 0
+        # 重试的次数
+        count = {"num": RETRIES}
+
+        def wrapped(*args, **kwargs):
+            try:
+                return function(*args, **kwargs)
+            except Exception as err:
+                if count['num'] < max_retries:
+                    time.sleep(default_retry_delay)
+                    count['num'] += 1
+                    return wrapped(*args, **kwargs)
+                else:
+                    status = 'Error'
+                    sel = 'Error'
+                    raise Exception(err)
+
+        return wrapped
+
+    return _conn_try_again
 
 
 class DataSetParser(object):
@@ -116,11 +151,7 @@ class Models(object):
         self.result = {}
         self.result_verbose = {}
 
-    def fit(self, verbose=False):
-        X_train = self.dataset_dict['X_train']
-        y_train = self.dataset_dict['y_train']
-        return self._fit(X_train, y_train, verbose=verbose)
-
+    @conn_try_again(max_retries=max_retries, default_retry_delay=default_retry_delay)
     def _fit(self, X_train, y_train, verbose=False):
         if verbose:
             iterator = self.estimator.fit_iter(X_train, y_train)
@@ -128,6 +159,17 @@ class Models(object):
             iterator = self.estimator.fit(X_train, y_train)
         return iterator
 
+    def fit(self, verbose=False):
+        """
+        because of some model can be fit with given data, thus this fit function is unsafe function
+        :param verbose:
+        :return:
+        """
+        X_train = self.dataset_dict['X_train']
+        y_train = self.dataset_dict['y_train']
+        return self._fit(X_train, y_train, verbose=verbose)
+
+    @conn_try_again(max_retries=max_retries, default_retry_delay=default_retry_delay)
     def fit_and_return(self, verbose=False):
         iterator = self.fit(verbose=verbose)
         if verbose:
