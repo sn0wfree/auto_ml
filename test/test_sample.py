@@ -4,6 +4,7 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 import requests
+from core.automl import Models, test_dataset
 from core.parameter_parser import ModelStore
 
 regressors = {'svr': 1,
@@ -69,10 +70,11 @@ def test():
 
 def test_upload_file(url='http://0.0.0.0:8279/upload_file',
                      files_='test.model'):
-    paths = __file__.split(__file__.split('/')[-1])[0]
-    print(paths)
-    strings = ModelStore._force_read(paths + files_)
+    # paths = __file__.split(__file__.split('/')[-1])[0]
 
+    # strings = ModelStore._force_read(paths + files_)
+    dataset_dict = test_dataset()
+    strings = ModelStore._save_in_memory(dataset_dict)
     # "text/plain"
     data = {'file': (files_, strings, "application/octet-stream")}
     # M2 = ModelStore._force_read_from_string(strings)
@@ -81,15 +83,12 @@ def test_upload_file(url='http://0.0.0.0:8279/upload_file',
     print(r.text)
 
 
-def test_check_file_exist(url='http://0.0.0.0:8279/check_file/'):
-    dataid = '95084a6f80643282ac94b0c11c28bbd0'
-
+def test_check_file_exist(url='http://0.0.0.0:8279/check_file/', dataid='36c4a77b16a731e990931b089e4775ec'):
     r = requests.get(url + dataid)
     print(r.text)
-    pass
 
 
-def test_auto_ml(url='http://0.0.0.0:8279/auto_ml/95084a6f80643282ac94b0c11c28bbd0'):
+def test_auto_ml(url='http://0.0.0.0:8279/auto_ml/36c4a77b16a731e990931b089e4775ec'):
     import json
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
@@ -101,7 +100,25 @@ def test_auto_ml(url='http://0.0.0.0:8279/auto_ml/95084a6f80643282ac94b0c11c28bb
     print(r.text)
 
 
+def run_program(params_classifier={'classifier': None,
+                                   'preprocessing': None,
+                                   'max_evals': 15,
+                                   'trial_timeout': 100,
+                                   'seed': 1}):
+    # paths = __file__.split(__file__.split('/')[-1])[0]
+    # files_ = 'test.model'
+    # strings = ModelStore._force_read(paths+files_)
+    dataset_dict = test_dataset()
+
+    # dataset_dict = ModelStore._force_read_from_string(strings)
+    # print(dataset_dict)
+
+    m = Models(params_classifier, dataset_dict)
+    print(m.fit_and_return(verbose_debug=False))
+
+
 if __name__ == '__main__':
+    test_auto_ml()
     # params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
     #                     'trial_timeout': 100, 'seed': 1}
     #
@@ -124,4 +141,3 @@ if __name__ == '__main__':
     # print(best)
     #
     # pass
-    test_check_file_exist()

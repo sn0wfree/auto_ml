@@ -53,6 +53,10 @@ class ModelStore(object):
             pickle.dump(modeldict, f, protocol=protocol)
 
     @staticmethod
+    def _save_in_memory(modeldict, protocol=2):
+        return pickle.dumps(modeldict, protocol=protocol)
+
+    @staticmethod
     def _read(files_):
         """
 
@@ -76,7 +80,7 @@ if __name__ == '__main__':
 
     files_ = 'test.model'
     strings = ModelStore._force_read(files_)
-    
+
     M2 = ModelStore._force_read_from_string(strings)
     print(M2)
 
