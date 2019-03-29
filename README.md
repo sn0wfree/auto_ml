@@ -1,39 +1,49 @@
+# AutoMachineLearning
 
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/sn0wfree/auto_ml/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+three api for u
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## upload_dataset
+upload_data_file_url = http://119.3.102.208:8279/upload_file
+Method : POST
+Parameter Form:
+> * files = {'file': ('files', strings, "application/octet-stream")}
 
-### Markdown
+> * strings is the binary data with dict-form, which own given keys and values
+> * {'X_train':X_train, 'y_train':y_train,'X_test':X_test, 'y_test':y_test}
+        
+requests.post(upload_data_file_url, files=files)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+return data_id  or Error Info
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## check_dataset
 
-- Bulleted
-- List
+url= http://119.3.102.208:8279/check_file/
+> * dataid is the code get from upload_dataset API
+Method : GET
+Sample:
+requests.get(url + dataid)
 
-1. Numbered
-2. List
+return dict
 
-**Bold** and _Italic_ and `Code` text
+## auto_ml
 
-[Link](url) and ![Image](src)
-```
+base_url = http://119.3.102.208:8279/
+url = base_url  + 'AutoML/' + dataid
+> * dataid is the code get from upload_dataset API
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+params = {'regressor': 'Null',
+          'preprocessing': [],
+          'max_evals': 5,
+         'trial_timeout': 10,
+          'seed': None}
+Method : POST
+Sample:
+>> * r = requests.post(url, params=params)
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/sn0wfree/auto_ml/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+return Model parameter
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
 
