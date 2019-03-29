@@ -4,8 +4,10 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 import requests
-from core.automl import Models, test_dataset
+from core.aml import Models, test_dataset
 from core.parameter_parser import ModelStore
+
+base_url = 'http://0.0.0.0:8279/'
 
 regressors = {'svr': 1,
               'knn': 2,
@@ -68,27 +70,30 @@ def test():
     #           warm_start=False), 'preprocs': (), 'ex_preprocs': ()}
 
 
-def test_upload_file(url='http://0.0.0.0:8279/upload_file',
-                     files_='test.model'):
+def test_upload_file(base_url=base_url, dataset_dict=None):
+    url = base_url + 'upload_file'
     # paths = __file__.split(__file__.split('/')[-1])[0]
 
     # strings = ModelStore._force_read(paths + files_)
-    dataset_dict = test_dataset()
+    if dataset_dict is None:
+        dataset_dict = test_dataset()
     strings = ModelStore._save_in_memory(dataset_dict)
     # "text/plain"
-    data = {'file': (files_, strings, "application/octet-stream")}
+    data = {'file': ('files', strings, "application/octet-stream")}
     # M2 = ModelStore._force_read_from_string(strings)
 
     r = requests.post(url, files=data)
     print(r.text)
 
 
-def test_check_file_exist(url='http://0.0.0.0:8279/check_file/', dataid='36c4a77b16a731e990931b089e4775ec'):
+def test_check_file_exist(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
+    url = base_url + 'check_file/'
     r = requests.get(url + dataid)
     print(r.text)
 
 
-def test_auto_ml(url='http://0.0.0.0:8279/auto_ml/36c4a77b16a731e990931b089e4775ec'):
+def test_auto_ml(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
+    url = base_url + 'auto_ml/' + dataid
     import json
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
@@ -118,7 +123,8 @@ def run_program(params_classifier={'classifier': None,
 
 
 if __name__ == '__main__':
-    test_auto_ml()
+    base_url = 'http://119.3.102.208:8279/'
+    test_auto_ml(base_url=base_url)
     # params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
     #                     'trial_timeout': 100, 'seed': 1}
     #
