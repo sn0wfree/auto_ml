@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 from core import __version__
 
-setup(name='auto_ml',
+setup(name='auto_machine_learning_pod',
       version=__version__,
       url='https://github.com/sn0wfree/auto_ml',
       license='MIT',
