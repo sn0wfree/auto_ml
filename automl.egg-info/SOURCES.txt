@@ -4,11 +4,11 @@ git_update.sh
 setup.py
 api/__init__.py
 api/_api.py
-auto_ml.egg-info/PKG-INFO
-auto_ml.egg-info/SOURCES.txt
-auto_ml.egg-info/dependency_links.txt
-auto_ml.egg-info/not-zip-safe
-auto_ml.egg-info/top_level.txt
+automl.egg-info/PKG-INFO
+automl.egg-info/SOURCES.txt
+automl.egg-info/dependency_links.txt
+automl.egg-info/not-zip-safe
+automl.egg-info/top_level.txt
 core/__init__.py
 core/aml.py
 core/auto_ml_core.py
