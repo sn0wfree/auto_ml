@@ -3,8 +3,8 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_
 
 from hyperopt import tpe
 import numpy as np
-from auto_ml.tools import conn_try_again
-from auto_ml.tools import typeassert
+from auto_ml.tools.conn_try_again import conn_try_again
+from auto_ml.tools.typeassert import typeassert
 import copy
 
 from auto_ml.core.parameter_parser import Parser
