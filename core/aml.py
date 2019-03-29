@@ -1,5 +1,5 @@
 # coding=utf8
-
+import warnings
 from core.auto_ml_core import test_dataset, Models
 from core.parameter_parser import ModelStore, Parser
 
@@ -22,11 +22,16 @@ class GetSupportModels(object):
 
 class AML(object):
     @staticmethod
-    def get_supported_model(model_type='rgs'):
+    def get_supported_model(model_type='rgs', raiseError=True):
         if model_type in ['rgs', 'clf']:
             return getattr(GetSupportModels, f'get_{model_type}')()
         else:
-            raise ValueError(f'wrong paramter : {model_type}! rgs or clf required! ')
+            st = f'wrong paramter : {model_type}! rgs or clf required! '
+            if raiseError:
+                raise ValueError(st)
+            else:
+                warnings.warn(st)
+                return st
 
     @staticmethod
     def run(params, dataset_dict):

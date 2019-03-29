@@ -100,7 +100,7 @@ class API(object):
         return r.text
 
     def _auto_ml(self, params, dataid, printout=True):
-        url = self.base_url + 'auto_ml/' + dataid
+        url = self.base_url + 'AutoML/' + dataid
 
         # {'regressor': 'Null', 'preprocessing': 'Null', 'max_evals': 5,
         #  'trial_timeout': 100, 'seed': 1}

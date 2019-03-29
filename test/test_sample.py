@@ -93,7 +93,7 @@ def test_check_file_exist(base_url=base_url, dataid='36c4a77b16a731e990931b089e4
 
 
 def test_auto_ml(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
-    url = base_url + 'auto_ml/' + dataid
+    url = base_url + 'AutoML/' + dataid
     import json
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
