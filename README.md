@@ -4,17 +4,19 @@
 * Three API for u currently
 
 ## upload_dataset
-upload_data_file_url = http://119.3.102.208:8279/upload_file
-Method : POST
-Parameter Form:
+* url : http://119.3.102.208:8279/upload_file
+* Method : POST
+* Parameter Form:
 > * files = {'file': ('files', strings, "application/octet-stream")}
-
 > * strings is the binary data with dict-form, which own given keys and values
-> * {'X_train':X_train, 'y_train':y_train,'X_test':X_test, 'y_test':y_test}
-        
-requests.post(upload_data_file_url, files=files)
+>> * strings = pickle.dumps({'X_train':X_train, 'y_train':y_train,'X_test':X_test, 'y_test':y_test},2)
+* return data_id  or Error Info
 
-return data_id  or Error Info
+
+Sample:     
+> * requests.post(url, files=files)
+
+
 
 
 ## check_dataset
