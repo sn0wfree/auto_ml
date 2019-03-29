@@ -3,7 +3,7 @@
 
 * Three API for u currently
 
-## upload_dataset
+## Upload_dataset
 * Url : http://119.3.102.208:8279/upload_file
 * Method : POST
 * Parameter Form:
@@ -19,7 +19,7 @@ Sample:
 
 
 
-## check_dataset
+## Check_dataset
 
 * Url : http://119.3.102.208:8279/check_file/
 * Method : GET
@@ -33,7 +33,7 @@ Sample:
 > * requests.get(url + dataid)
 
 
-## auto_ml
+## Auto_ml
 
 * base_url = http://119.3.102.208:8279/
 * url = base_url  + 'AutoML/' + dataid
