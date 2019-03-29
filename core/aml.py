@@ -22,6 +22,10 @@ class GetSupportModels(object):
 
 class AML(object):
     @staticmethod
+    def t():
+        print('good')
+
+    @staticmethod
     def get_supported_model(model_type='rgs', raiseError=True):
         if model_type in ['rgs', 'clf']:
             return getattr(GetSupportModels, f'get_{model_type}')()

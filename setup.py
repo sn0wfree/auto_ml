@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 from core import __version__
 
-setup(name='automl',
+setup(name='auto_ml',
       version=__version__,
       url='https://github.com/sn0wfree/auto_ml',
       license='MIT',
