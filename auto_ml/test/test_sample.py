@@ -4,8 +4,8 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 import requests
-from AutoMachineLearningPod.core.aml import Models, test_dataset
-from AutoMachineLearningPod.core.parameter_parser import ModelStore
+from auto_ml.core.aml import Models, test_dataset
+from auto_ml.core.parameter_parser import ModelStore
 
 base_url = 'http://0.0.0.0:8279/'
 

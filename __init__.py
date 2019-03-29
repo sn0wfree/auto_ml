@@ -1,5 +1,5 @@
 # coding=utf8
-from AutoMachineLearningPod.core.aml import AML
+from auto_ml.core.aml import AML
 
 print(AML.t())
 if __name__ == '__main__':

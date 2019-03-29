@@ -1,8 +1,8 @@
 # coding=utf8
 from setuptools import setup, find_packages
-from AutoMachineLearningPod.core import __version__
+from auto_ml.core import __version__
 
-setup(name='AutoMachineLearningPod',
+setup(name='auto_ml',
       version=__version__,
       url='https://github.com/sn0wfree/auto_ml',
       license='MIT',

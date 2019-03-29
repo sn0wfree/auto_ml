@@ -3,11 +3,11 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_
 
 from hyperopt import tpe
 import numpy as np
-from AutoMachineLearningPod.tools import conn_try_again
-from AutoMachineLearningPod.tools import typeassert
+from auto_ml.tools import conn_try_again
+from auto_ml.tools import typeassert
 import copy
 
-from AutoMachineLearningPod.core.parameter_parser import Parser
+from auto_ml.core.parameter_parser import Parser
 
 max_retries = 5
 default_retry_delay = 1
