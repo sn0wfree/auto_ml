@@ -1,6 +1,6 @@
 # coding=utf8
 import warnings
-from auto_ml.core import test_dataset, Models
+from auto_ml.core.auto_ml_core import test_dataset, Models
 from auto_ml.core.parameter_parser import Parser
 
 
