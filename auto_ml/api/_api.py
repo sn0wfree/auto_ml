@@ -123,8 +123,11 @@ class test_API(API):
         return self._check_file_exist(dataid, printout=printout)
 
     def test_auto_ml(self,
-                     params={'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
-                             'trial_timeout': 100, 'seed': 1},
+                     params={'regressor': 'Null',
+                             'preprocessing': [],
+                             'max_evals': 5,
+                             'trial_timeout': 10,
+                             'seed': None},
                      dataid='36c4a77b16a731e990931b089e4775ec',
                      printout=True):
         return self._auto_ml(params, dataid, printout=printout)
@@ -148,9 +151,24 @@ def run_program(params_classifier={'classifier': None,
 
 
 if __name__ == '__main__':
-    base_url = 'http://119.3.102.208:8279/'
-    tAPI = test_API(base_url)
-    tAPI.test_auto_ml()
+    # base_url = 'http://0.0.0.0:8279/'
+
+    def test2(i):
+        base_url = 'http://119.3.102.208:8279/'
+        tAPI = test_API(base_url)
+        tAPI.test_auto_ml()
+
+
+    from multiprocessing import Pool
+
+    Pool2 = Pool(3)
+
+    Pool2.map(test2, range(10))
+    Pool2.close()
+    Pool2.join()
+
+
+
     # params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
     #                     'trial_timeout': 100, 'seed': 1}
     #
