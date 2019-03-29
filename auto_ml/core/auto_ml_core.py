@@ -1,12 +1,13 @@
 # coding=utf8
-import pickle
 from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_regressor
 
 from hyperopt import tpe
 import numpy as np
-from tools.conn_try_again import conn_try_again
-from tools.typeassert import typeassert
+from auto_ml.tools.conn_try_again import conn_try_again
+from auto_ml.tools.typeassert import typeassert
 import copy
+
+from auto_ml.core.parameter_parser import Parser
 
 max_retries = 5
 default_retry_delay = 1
@@ -44,10 +45,41 @@ class DataSetParser(object):
 
 
 class ModelBuilder(object):
+    param_regressor = ['regressor', 'preprocessing', 'algo', 'max_evals', 'trial_timeout', 'seed']
+    param_classifier = ['classifier', 'preprocessing', 'algo', 'max_evals', 'trial_timeout', 'seed']
+
+    @classmethod
+    def _create_estimator(cls, **kwargs):
+        # dict(regressor=regressor,
+        #      preprocessing=preprocessing,
+        #      algo=algo,
+        #      max_evals=max_evals,
+        #      trial_timeout=trial_timeout,
+        #      seed=seed)
+
+        # params = dict(regressor=None,
+        #          preprocessing=None,
+        #          algo=None,
+        #          max_evals=None,
+        #          trial_timeout=None,
+        #          ex_preprocs=None,
+        #          classifier=None,
+        #          space=None,
+        #          loss_fn=None,
+        #          continuous_loss_fn=False,
+        #          verbose=False,
+        #          fit_increment=1,
+        #          fit_increment_dump_filename=None,
+        #          seed=None,
+        #          use_partial_fit=False,
+        #          refit=True)
+        estim = HyperoptEstimator(**kwargs)
+
+        return estim
 
     @classmethod
     @typeassert(object, params=dict)
-    def create_estimator(cls, params):
+    def create_estimator(cls, params, printout=False):
         """
 
 
@@ -59,19 +91,36 @@ class ModelBuilder(object):
             if 'classifier' in params.keys():
                 raise ValueError('params obtain two similar parameters (regressor and classifier) ')
             else:
-
                 params_copy = copy.deepcopy(params)
-                params_copy.pop('regressor')
-                print('regressor', params_copy)
+                if printout:
+                    print('regressor', params_copy)
+                if params_copy['regressor'] is None:
+                    params_copy.pop('regressor')
 
-                return cls._create_estimator_random_regressor(**params_copy)
+                    return cls._create_estimator_random_regressor(**params_copy)
+                else:
+
+                    params_copy['regressor'] = Parser.select_regressor(params_copy['regressor'])
+                    if printout:
+                        print(params_copy['regressor'])
+                    return cls._create_estimator(**params_copy)
+
         elif 'classifier' in params.keys():
 
             params_copy = copy.deepcopy(params)
-            params_copy.pop('classifier')
-            print('classifier', params_copy)
+            if printout:
+                print('classifier', params_copy)
 
-            return cls._create_estimator_random_classifier(**params_copy)
+            if params_copy['classifier'] is None:
+                params_copy.pop('classifier')
+
+                return cls._create_estimator_random_classifier(**params_copy)
+            else:
+                # print(Parser.select_classifier(params['classifier']))
+                params_copy['classifier'] = Parser.select_classifier(params_copy['classifier'])
+                if printout:
+                    print(params_copy['classifier'])
+                return cls._create_estimator(**params_copy)
 
     @staticmethod
     def _create_estimator_random_regressor(regressor=any_regressor('my_rgs'),
@@ -80,32 +129,7 @@ class ModelBuilder(object):
                                            trial_timeout=120,
                                            seed=None,
                                            algo=tpe.suggest, fit_increment=1):
-
         """
-         regressors = [
-        svr(name + '.svr'),
-        knn_regression(name + '.knn'),
-        random_forest_regression(name + '.random_forest'),
-        extra_trees_regression(name + '.extra_trees'),
-        ada_boost_regression(name + '.ada_boost'),
-        gradient_boosting_regression(name + '.grad_boosting'),
-        sgd_regression(name + '.sgd')
-    ]
-    classifiers = [
-        svc(name + '.svc'),
-        knn(name + '.knn'),
-        random_forest(name + '.random_forest'),
-        extra_trees(name + '.extra_trees'),
-        ada_boost(name + '.ada_boost'),
-        gradient_boosting(name + '.grad_boosting', loss='deviance'),
-        sgd(name + '.sgd')
-    ]
-
-    if xgboost:
-        classifiers.append(xgboost_classification(name + '.xgboost'))
-
-    if xgboost:
-        regressors.append(xgboost_regression(name + '.xgboost'))
 
         :param regressor:
         :param preprocessing:
@@ -142,22 +166,7 @@ class ModelBuilder(object):
                                             trial_timeout=120,
                                             seed=None,
                                             algo=tpe.suggest):
-
         """
-
-        classifiers = [
-        svc(name + '.svc'),
-        knn(name + '.knn'),
-        random_forest(name + '.random_forest'),
-        extra_trees(name + '.extra_trees'),
-        ada_boost(name + '.ada_boost'),
-        gradient_boosting(name + '.grad_boosting', loss='deviance'),
-        sgd(name + '.sgd')
-    ]
-
-    if xgboost:
-        classifiers.append(xgboost_classification(name + '.xgboost'))
-
 
         :param classifier:
         :param preprocessing:
@@ -336,17 +345,24 @@ def test_dataset():
 
 
 if __name__ == '__main__':
+    from hpsklearn.components import random_forest
+
+    s = random_forest('clf' + '.random_forest'),
     params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 15,
                         'trial_timeout': 100, 'seed': 1}
 
-    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 15,
+    params_classifier = {'classifier': s, 'preprocessing': None, 'max_evals': 15,
                          'trial_timeout': 100, 'seed': 1}
 
-    # estimator = ModelBuilder.create_estimator(params_regressor)
-    dataset_dict = test_dataset()
-    m = Models(params_classifier, dataset_dict)
+    s2 = any_classifier('te')
+    print(1)
 
-    print(m.fit_and_return(verbose_debug=False))
+    # estimator = ModelBuilder.create_estimator(params_regressor)
+
+    # dataset_dict = test_dataset()
+    # m = Models(params_classifier, dataset_dict)
+    #
+    # print(m.fit_and_return(verbose_debug=False))
 
     print(0)
     # print(create_estimator(test_dataset()))

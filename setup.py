@@ -1,6 +1,6 @@
 # coding=utf8
 from setuptools import setup, find_packages
-from core import __version__
+from auto_ml.core import __version__
 
 setup(name='auto_ml',
       version=__version__,

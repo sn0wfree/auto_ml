@@ -4,7 +4,10 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 import requests
-from core.parameter_parser import ModelStore
+from auto_ml.core.aml import Models, test_dataset
+from auto_ml.core.parameter_parser import ModelStore
+
+base_url = 'http://0.0.0.0:8279/'
 
 regressors = {'svr': 1,
               'knn': 2,
@@ -67,45 +70,73 @@ def test():
     #           warm_start=False), 'preprocs': (), 'ex_preprocs': ()}
 
 
-def test_upload_file(url='http://0.0.0.0:8279/upload_file',
-                     files_='test.model'):
-    strings = ModelStore._force_read(files_)
+def test_upload_file(base_url=base_url, dataset_dict=None):
+    url = base_url + 'upload_file'
+    # paths = __file__.split(__file__.split('/')[-1])[0]
 
+    # strings = ModelStore._force_read(paths + files_)
+    if dataset_dict is None:
+        dataset_dict = test_dataset()
+    strings = ModelStore._save_in_memory(dataset_dict)
     # "text/plain"
-    data = {'file': ('model.model', strings, "application/octet-stream")}
+    data = {'file': ('files', strings, "application/octet-stream")}
     # M2 = ModelStore._force_read_from_string(strings)
 
     r = requests.post(url, files=data)
-
     print(r.text)
 
 
-def test_auto_ml(url='http://0.0.0.0:8279/auto_ml'):
-    import json
+def test_check_file_exist(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
+    url = base_url + 'check_file/'
+    r = requests.get(url + dataid)
+    print(r.text)
+
+
+def test_auto_ml(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
+    url = base_url + 'AutoML/' + dataid
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
     # {'regressor': 'Null', 'preprocessing': 'Null', 'max_evals': 5,
     #  'trial_timeout': 100, 'seed': 1}
     # para = {'parameters': ('parameter', json.dumps(params_regressor), 'application/json')}
-    print(json.dumps(params_regressor))
+    # print(json.dumps(params_regressor))
     r = requests.post(url, params=params_regressor)
     print(r.text)
 
 
+def run_program(params_classifier={'classifier': None,
+                                   'preprocessing': None,
+                                   'max_evals': 15,
+                                   'trial_timeout': 100,
+                                   'seed': 1}):
+    # paths = __file__.split(__file__.split('/')[-1])[0]
+    # files_ = 'test.model'
+    # strings = ModelStore._force_read(paths+files_)
+    dataset_dict = test_dataset()
+
+    # dataset_dict = ModelStore._force_read_from_string(strings)
+    # print(dataset_dict)
+
+    m = Models(params_classifier, dataset_dict)
+    print(m.fit_and_return(verbose_debug=False))
+
+
 if __name__ == '__main__':
-    params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
-                        'trial_timeout': 100, 'seed': 1}
-
-    params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
-                         'trial_timeout': 100, 'seed': 1}
-
-    # estimator = ModelBuilder.create_estimator(params_regressor)
-    modeldict = test(params_regressor)
-    files_ = 'test.model'
-    ModelStore._save(modeldict, files_)
-    modeldict2 = ModelStore._read(files_, protocol=2)
-
-    print(modeldict, modeldict2)
+    base_url = 'http://119.3.102.208:8279/'
+    test_auto_ml(base_url=base_url)
+    # params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 5,
+    #                     'trial_timeout': 100, 'seed': 1}
+    #
+    # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
+    #                      'trial_timeout': 100, 'seed': 1}
+    #
+    # # estimator = ModelBuilder.create_estimator(params_regressor)
+    # modeldict = test(params_regressor)
+    # files_ = 'test.model'
+    # ModelStore._save(modeldict, files_)
+    # modeldict2 = ModelStore._read(files_, protocol=2)
+    #
+    # print(modeldict, modeldict2)
     # from hyperopt import fmin, tpe, hp
     #
     # best = fmin(fn=lambda x: x ** 2,
@@ -115,4 +146,3 @@ if __name__ == '__main__':
     # print(best)
     #
     # pass
-    test_auto_ml()
