@@ -4,8 +4,8 @@ from sklearn.datasets import load_iris
 from hyperopt import tpe
 import numpy as np
 import requests
-from core.aml import Models, test_dataset
-from core.parameter_parser import ModelStore
+from AutoMachineLearningPod.core.aml import Models, test_dataset
+from AutoMachineLearningPod.core.parameter_parser import ModelStore
 
 base_url = 'http://0.0.0.0:8279/'
 
@@ -94,7 +94,6 @@ def test_check_file_exist(base_url=base_url, dataid='36c4a77b16a731e990931b089e4
 
 def test_auto_ml(base_url=base_url, dataid='36c4a77b16a731e990931b089e4775ec'):
     url = base_url + 'AutoML/' + dataid
-    import json
     params_regressor = {'regressor': 'Null', 'preprocessing': '[]', 'max_evals': 5,
                         'trial_timeout': 100, 'seed': 1}
     # {'regressor': 'Null', 'preprocessing': 'Null', 'max_evals': 5,

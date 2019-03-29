@@ -1,5 +1,4 @@
 # coding=utf8
-from hpsklearn import components
 import pickle
 
 
@@ -154,8 +153,6 @@ class ModelStore(object):
 
 
 if __name__ == '__main__':
-    from core.parameter_parser import ModelStore
-
     # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
     #                      'trial_timeout': 100, 'seed': 1}
     # dataset_dict = test_dataset()

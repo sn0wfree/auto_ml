@@ -1,12 +1,7 @@
 # coding=utf8
-from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing
-from sklearn.datasets import load_iris
-from hyperopt import tpe
-import numpy as np
-import json
 import requests
-from core.aml import Models, test_dataset
-from core.parameter_parser import ModelStore
+from AutoMachineLearningPod.core.aml import Models, test_dataset
+from AutoMachineLearningPod.core.parameter_parser import ModelStore
 
 base_url = 'http://0.0.0.0:8279/'
 

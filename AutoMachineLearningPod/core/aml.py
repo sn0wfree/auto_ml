@@ -1,7 +1,7 @@
 # coding=utf8
 import warnings
-from core.auto_ml_core import test_dataset, Models
-from core.parameter_parser import ModelStore, Parser
+from AutoMachineLearningPod.core import test_dataset, Models
+from AutoMachineLearningPod.core.parameter_parser import Parser
 
 
 class GetSupportModels(object):

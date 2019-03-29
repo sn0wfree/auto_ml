@@ -1,6 +1,6 @@
 # coding=utf8
 from setuptools import setup, find_packages
-from core import __version__
+from AutoMachineLearningPod.core import __version__
 
 setup(name='AutoMachineLearningPod',
       version=__version__,

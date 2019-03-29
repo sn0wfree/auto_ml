@@ -1,14 +1,13 @@
 # coding=utf8
-import pickle
 from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_regressor
 
 from hyperopt import tpe
 import numpy as np
-from tools.conn_try_again import conn_try_again
-from tools.typeassert import typeassert
+from AutoMachineLearningPod.tools import conn_try_again
+from AutoMachineLearningPod.tools import typeassert
 import copy
 
-from core.parameter_parser import Parser
+from AutoMachineLearningPod.core.parameter_parser import Parser
 
 max_retries = 5
 default_retry_delay = 1
@@ -346,7 +345,7 @@ def test_dataset():
 
 
 if __name__ == '__main__':
-    from hpsklearn.components import svc, knn, random_forest, extra_trees, ada_boost, gradient_boosting, sgd
+    from hpsklearn.components import random_forest
 
     s = random_forest('clf' + '.random_forest'),
     params_regressor = {'regressor': None, 'preprocessing': None, 'max_evals': 15,
