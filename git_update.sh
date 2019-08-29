@@ -1,4 +1,13 @@
 #!/bin/bash
+nowdate=`date`
+echo ${nowdate}
 
-git add * && git commit -m" alter some and automatly update! " && git push automl v0.1.1
+echo "git marking"
+
+git add *
+git commit -m" alter some and automated update! "
+
+branch_nam=`git symbolic-ref --short -q HEAD`
+echo "will push to ${branch_name}"
+git push origin ${branch_name}
 
