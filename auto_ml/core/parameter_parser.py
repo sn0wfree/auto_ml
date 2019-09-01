@@ -1,6 +1,15 @@
 # coding=utf8
 import pickle
 
+from auto_ml.tools.ModelStore import ModelStore
+
+from hpsklearn.components import xgboost, xgboost_classification, xgboost_regression
+from hpsklearn.components import svc, knn, random_forest, extra_trees, ada_boost, gradient_boosting, sgd
+from hpsklearn.components import svr, knn_regression, random_forest_regression, extra_trees_regression, \
+    ada_boost_regression, gradient_boosting_regression, sgd_regression
+
+from hyperopt import hp
+
 
 class ParametersHolder(object):
     Regressors = ['svr', 'svr_linear', 'svr_rbf',
@@ -22,14 +31,6 @@ class ParametersHolder(object):
                      'rbm', 'colkmeans']
 
 
-from hpsklearn.components import xgboost, xgboost_classification, xgboost_regression
-from hpsklearn.components import svc, knn, random_forest, extra_trees, ada_boost, gradient_boosting, sgd
-from hpsklearn.components import svr, knn_regression, random_forest_regression, extra_trees_regression, \
-    ada_boost_regression, gradient_boosting_regression, sgd_regression
-
-from hyperopt import hp
-
-
 class Parser(object):
     @staticmethod
     def _translate_obj(basic, add_extra=False, extra=['xgboot']):
@@ -49,7 +50,7 @@ class Parser(object):
         return cls._translate_obj(basic, add_extra=add_extra, extra=extra)
 
     @classmethod
-    def check_translate(cls, name, translate_type='rgs',printout=False):
+    def check_translate(cls, name, translate_type='rgs', printout=False):
         """
 
         :param name:
@@ -111,46 +112,46 @@ class Parser(object):
         return hp.choice('%s' % name, [regressors_dict[rgs_type]])
 
 
-class ModelStore(object):
-    @staticmethod
-    def grab_result(result):
-        return result
-
-    @staticmethod
-    def _force_read(files_):
-        """
-        force read pickle object
-        :param files_:
-        :return:
-        """
-        with open(files_, 'rb') as f:
-            strings = f.read()
-        return strings
-
-    @staticmethod
-    def _force_read_from_string(strings):
-        return pickle.loads(strings)
-
-    @staticmethod
-    def _save(modeldict, files_, protocol=2):
-        with open(files_, 'wb') as f:
-            pickle.dump(modeldict, f, protocol=protocol)
-
-    @staticmethod
-    def _save_in_memory(modeldict, protocol=2):
-        return pickle.dumps(modeldict, protocol=protocol)
-
-    @staticmethod
-    def _read(files_):
-        """
-
-        :param files_:
-        :return:
-        """
-        with open(files_, 'rb') as f:
-            modeldict = pickle.load(f)
-        return modeldict
-
+# class ModelStore(object):
+#     @staticmethod
+#     def grab_result(result):
+#         return result
+#
+#     @staticmethod
+#     def _force_read(files_):
+#         """
+#         force read pickle object
+#         :param files_:
+#         :return:
+#         """
+#         with open(files_, 'rb') as f:
+#             strings = f.read()
+#         return strings
+#
+#     @staticmethod
+#     def _force_read_from_string(strings):
+#         return pickle.loads(strings)
+#
+#     @staticmethod
+#     def _save(modeldict, files_, protocol=2):
+#         with open(files_, 'wb') as f:
+#             pickle.dump(modeldict, f, protocol=protocol)
+#
+#     @staticmethod
+#     def _save_in_memory(modeldict, protocol=2):
+#         return pickle.dumps(modeldict, protocol=protocol)
+#
+#     @staticmethod
+#     def _read(files_):
+#         """
+#
+#         :param files_:
+#         :return:
+#         """
+#         with open(files_, 'rb') as f:
+#             modeldict = pickle.load(f)
+#         return modeldict
+#
 
 if __name__ == '__main__':
     # params_classifier = {'classifier': None, 'preprocessing': None, 'max_evals': 5,
