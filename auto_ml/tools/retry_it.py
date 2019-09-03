@@ -3,7 +3,7 @@ import time
 from functools import wraps
 
 
-def conn_try_again(max_retries=5, default_retry_delay=1, Exception_func=Exception):
+def retry(max_retries=5, default_retry_delay=1, default_sleep_time=0.1, Exception_func=Exception):
     """
     retry function
     :param max_retries:
@@ -25,8 +25,9 @@ def conn_try_again(max_retries=5, default_retry_delay=1, Exception_func=Exceptio
 
                 if count['num'] < max_retries:
                     print('will retry {} times '.format(max_retries - count['num']))
-                    time.sleep(default_retry_delay)
                     count['num'] += 1
+                    time.sleep(default_sleep_time + default_retry_delay * count['num'])
+
                     return wrapped(*args, **kwargs)
                 else:
                     # status = 'Error'

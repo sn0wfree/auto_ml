@@ -3,7 +3,7 @@ from hpsklearn import HyperoptEstimator, any_classifier, any_preprocessing, any_
 
 from hyperopt import tpe
 import numpy as np
-from auto_ml.tools.conn_try_again import conn_try_again
+from auto_ml.tools.retry_it import retry
 from auto_ml.tools.typeassert import typeassert
 import copy
 
@@ -224,7 +224,7 @@ class Model(object):
         y_train = self.dataset_dict['y_train']
         return self._fit(X_train, y_train, verbose_debug=verbose_debug)
 
-    @conn_try_again(max_retries=max_retries, default_retry_delay=default_retry_delay)
+    @retry(max_retries=max_retries, default_retry_delay=default_retry_delay)
     def fit_and_return(self, verbose_debug=False):
         iterator = self.fit(verbose_debug=verbose_debug)
         if verbose_debug:
