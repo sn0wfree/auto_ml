@@ -152,3 +152,54 @@ def create_hash(res):
     res_dumps = ModelStore._save_in_memory(res)
     model_id = hash(str(res_dumps))
     return model_id
+
+
+def load_and_run_ml(data_dict, max_evals, trial_timeout, search_mode, core_reflect_dict=all_dict):
+    print(f'max_evals: {max_evals}')
+    print(f'trial_timeout: {trial_timeout}')
+    print(f'search_mode: {search_mode}')
+    print(f'search_mode: {search_mode}')
+
+    dataset_dict = data_dict
+    core_type = core_reflect_dict[search_mode]
+
+    if core_type == 'clf':
+        regressor = search_mode
+        classifier = None
+    elif core_type == 'clf':
+        regressor = None
+        classifier = search_mode
+    else:
+        raise ValueError('custom paramters has not been supported !')
+    method = (regressor, classifier)
+    result_dict = run_core(dataset_dict, max_evals, trial_timeout, method=(None, None), preprocessing=[],
+                           ex_preprocs=None,
+                           space=None,
+                           loss_fn=None,
+                           verbose=False,
+                           fit_increment=1,
+                           fit_increment_dump_filename=None,
+                           seed=None,
+                           use_partial_fit=False, raiseError=False)
+    return result_dict
+
+
+def load_params(from_sys=True):
+    if len(sys.argv) == 6:
+        model_store_path = sys.argv[1]
+        data_store_path = sys.argv[2]
+        max_evals = sys.argv[3]
+        trial_timeout = sys.argv[4]
+        t = sys.argv[5]
+    else:
+        model_store_path = '/home/linlu/apihub/static/new2'
+        data_store_path = '/home/linlu/apihub/static/data/predict_eps/model2'
+
+        max_evals = 100
+        trial_timeout = 300
+        t = 'rgs'
+    return model_store_path, data_store_path, max_evals, trial_timeout,t
+
+
+if __name__ == '__main__':
+    pass

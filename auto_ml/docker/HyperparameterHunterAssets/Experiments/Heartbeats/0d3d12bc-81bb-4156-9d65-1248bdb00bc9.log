@@ -1,0 +1,69 @@
+<2019-09-03 11:18:48,974> DEBUG    - Logging Logging has been initialized!
+<2019-09-03 11:18:48,975> INFO     - Validated Environment:  'qEiD_T9EgruQaBPZMAzlXY8W4htP3c3oekTKGP-_np0='
+<2019-09-03 11:18:48,977> DEBUG    - Starting preparation_workflow...
+<2019-09-03 11:18:48,978> INFO     - Initialized Experiment: '0d3d12bc-81bb-4156-9d65-1248bdb00bc9'
+<2019-09-03 11:18:48,980> DEBUG    - Created source backup:  'C:\Users\ll\PycharmProjects\auto_ml\auto_ml\docker\test1.py'
+<2019-09-03 11:18:48,981> DEBUG    - Experiment parameters have been validated
+<2019-09-03 11:18:49,049> INFO     - Hyperparameter Key:     'GMcFsQ6Ygm65wadiGjyFz0DFb5xnfbiXswqJOkQkr4M='
+<2019-09-03 11:18:49,049> DEBUG    - Raw hyperparameters...
+<2019-09-03 11:18:49,050> DEBUG    - {'model_initializer': '43kIJTa0VISs5p7jsLd_vhyPqPUH52W-DzMyC-BsrNM=', 'model_init_params': {'penalty': 'l1', 'loss': 'squared_hinge', 'dual': False, 'tol': 0.0001, 'C': 0.9, 'multi_class': 'ovr', 'fit_intercept': True, 'intercept_scaling': 1, 'class_weight': None, 'verbose': 0, 'random_state': None, 'max_iter': 1000}, 'model_extra_params': {}, 'feature_engineer': {'steps': [], 'do_validate': False, 'datasets': {}}, 'feature_selector': ['mean radius', 'mean texture', 'mean perimeter', 'mean area', 'mean smoothness', 'mean compactness', 'mean concavity', 'mean concave points', 'mean symmetry', 'mean fractal dimension', 'radius error', 'texture error', 'perimeter error', 'area error', 'smoothness error', 'compactness error', 'concavity error', 'concave points error', 'symmetry error', 'fractal dimension error', 'worst radius', 'worst texture', 'worst perimeter', 'worst area', 'worst smoothness', 'worst compactness', 'worst concavity', 'worst concave points', 'worst symmetry', 'worst fractal dimension']}
+<2019-09-03 11:18:49,050> DEBUG    - Completed preparation_workflow
+<2019-09-03 11:18:49,051> DEBUG    - BaseExperiment._random_seed_initializer() done
+<2019-09-03 11:18:49,052> DEBUG    - Initialized random seeds for experiment
+<2019-09-03 11:18:49,082> DEBUG    - Initial preprocessing stage complete
+<2019-09-03 11:18:49,090> INFO     - 
+<2019-09-03 11:18:49,090> DEBUG    - BaseCallback.on_exp_start()
+<2019-09-03 11:18:49,100> DEBUG    - BaseCallback.on_rep_start()
+<2019-09-03 11:18:49,186> DEBUG    - BaseCallback.on_fold_start()
+<2019-09-03 11:18:49,186> DEBUG    - Intra-CV preprocessing stage complete
+<2019-09-03 11:18:49,188> DEBUG    - R0-f0-r0  |  Seed: 10967   Time: 11:18:49
+<2019-09-03 11:18:49,188> DEBUG    - BaseCallback.on_run_start()
+<2019-09-03 11:18:49,699> DEBUG    - R0-f0-r0  |  OOF(roc_auc_score=0.94897)  |  Time: 0.51136 s
+<2019-09-03 11:18:49,699> DEBUG    - BaseCallback.on_run_end()
+<2019-09-03 11:18:49,781> INFO     - R0-f0-r-  |  OOF(roc_auc_score=0.94897)  |  Time: 0.59558 s
+<2019-09-03 11:18:49,782> DEBUG    - BaseCallback.on_fold_end()
+<2019-09-03 11:18:49,800> DEBUG    - BaseCallback.on_fold_start()
+<2019-09-03 11:18:49,801> DEBUG    - Intra-CV preprocessing stage complete
+<2019-09-03 11:18:49,802> DEBUG    - R0-f1-r0  |  Seed: 75062   Time: 11:18:49
+<2019-09-03 11:18:49,802> DEBUG    - BaseCallback.on_run_start()
+<2019-09-03 11:18:49,906> DEBUG    - R0-f1-r0  |  OOF(roc_auc_score=0.92797)  |  Time: 0.10325 s
+<2019-09-03 11:18:49,906> DEBUG    - BaseCallback.on_run_end()
+<2019-09-03 11:18:49,937> INFO     - R0-f1-r-  |  OOF(roc_auc_score=0.92797)  |  Time: 0.13636 s
+<2019-09-03 11:18:49,938> DEBUG    - BaseCallback.on_fold_end()
+<2019-09-03 11:18:49,957> DEBUG    - BaseCallback.on_fold_start()
+<2019-09-03 11:18:49,958> DEBUG    - Intra-CV preprocessing stage complete
+<2019-09-03 11:18:49,959> DEBUG    - R0-f2-r0  |  Seed: 60284   Time: 11:18:49
+<2019-09-03 11:18:49,960> DEBUG    - BaseCallback.on_run_start()
+<2019-09-03 11:18:50,065> DEBUG    - R0-f2-r0  |  OOF(roc_auc_score=0.93343)  |  Time: 0.10527 s
+<2019-09-03 11:18:50,065> DEBUG    - BaseCallback.on_run_end()
+<2019-09-03 11:18:50,101> INFO     - R0-f2-r-  |  OOF(roc_auc_score=0.93343)  |  Time: 0.14338 s
+<2019-09-03 11:18:50,101> DEBUG    - BaseCallback.on_fold_end()
+<2019-09-03 11:18:50,123> DEBUG    - BaseCallback.on_fold_start()
+<2019-09-03 11:18:50,124> DEBUG    - Intra-CV preprocessing stage complete
+<2019-09-03 11:18:50,125> DEBUG    - R0-f3-r0  |  Seed: 20414   Time: 11:18:50
+<2019-09-03 11:18:50,125> DEBUG    - BaseCallback.on_run_start()
+<2019-09-03 11:18:50,227> DEBUG    - R0-f3-r0  |  OOF(roc_auc_score=0.97401)  |  Time: 0.1013 s
+<2019-09-03 11:18:50,227> DEBUG    - BaseCallback.on_run_end()
+<2019-09-03 11:18:50,251> INFO     - R0-f3-r-  |  OOF(roc_auc_score=0.97401)  |  Time: 0.12834 s
+<2019-09-03 11:18:50,252> DEBUG    - BaseCallback.on_fold_end()
+<2019-09-03 11:18:50,270> DEBUG    - BaseCallback.on_fold_start()
+<2019-09-03 11:18:50,271> DEBUG    - Intra-CV preprocessing stage complete
+<2019-09-03 11:18:50,272> DEBUG    - R0-f4-r0  |  Seed: 24828   Time: 11:18:50
+<2019-09-03 11:18:50,272> DEBUG    - BaseCallback.on_run_start()
+<2019-09-03 11:18:50,343> DEBUG    - R0-f4-r0  |  OOF(roc_auc_score=0.94534)  |  Time: 0.07119 s
+<2019-09-03 11:18:50,344> DEBUG    - BaseCallback.on_run_end()
+<2019-09-03 11:18:50,366> INFO     - R0-f4-r-  |  OOF(roc_auc_score=0.94534)  |  Time: 0.09428 s
+<2019-09-03 11:18:50,366> DEBUG    - BaseCallback.on_fold_end()
+<2019-09-03 11:18:50,371> DEBUG    - R0-f--r-  |  OOF(roc_auc_score=0.94590)  |  Time: 1.27141 s
+<2019-09-03 11:18:50,372> DEBUG    - BaseCallback.on_rep_end()
+<2019-09-03 11:18:50,381> INFO     - [34mFINAL     |  OOF(roc_auc_score=0.94590)  |  Time: 1.29043 s[0m
+<2019-09-03 11:18:50,381> DEBUG    - BaseCallback.on_exp_end()
+<2019-09-03 11:18:50,382> INFO     - 
+<2019-09-03 11:18:50,599> INFO     - Saving results for Experiment: '0d3d12bc-81bb-4156-9d65-1248bdb00bc9'
+<2019-09-03 11:18:50,601> DEBUG    - Saving result file for 'TestedKeyRecorder'
+<2019-09-03 11:18:50,603> DEBUG    - Saved cross_experiment_key: "qEiD_T9EgruQaBPZMAzlXY8W4htP3c3oekTKGP-_np0="
+<2019-09-03 11:18:50,605> DEBUG    - Saved hyperparameter_key: "GMcFsQ6Ygm65wadiGjyFz0DFb5xnfbiXswqJOkQkr4M="
+<2019-09-03 11:18:50,607> DEBUG    - Saving result file for 'LeaderboardEntryRecorder'
+<2019-09-03 11:18:50,619> DEBUG    - Saving result file for 'DescriptionRecorder'
+<2019-09-03 11:18:50,638> DEBUG    - Saving result file for 'PredictionsOOFRecorder'
+<2019-09-03 11:18:50,653> DEBUG    - Saving result file for 'HeartbeatRecorder'

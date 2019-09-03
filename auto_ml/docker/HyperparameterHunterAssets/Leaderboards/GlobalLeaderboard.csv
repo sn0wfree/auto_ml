@@ -1,0 +1,3 @@
+oof_roc_auc_score,experiment_id,hyperparameter_key,cross_experiment_key,algorithm_name,experiment_#
+0.9459000581,be276aaf-3503-4d1d-aa48-b666816999a6,GMcFsQ6Ygm65wadiGjyFz0DFb5xnfbiXswqJOkQkr4M=,qEiD_T9EgruQaBPZMAzlXY8W4htP3c3oekTKGP-_np0=,LinearSVC,1
+0.9459000581,0d3d12bc-81bb-4156-9d65-1248bdb00bc9,GMcFsQ6Ygm65wadiGjyFz0DFb5xnfbiXswqJOkQkr4M=,qEiD_T9EgruQaBPZMAzlXY8W4htP3c3oekTKGP-_np0=,LinearSVC,0
