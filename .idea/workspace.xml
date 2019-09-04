@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ed13926-8ae4-4a87-bc72-c75390ff9ed3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/auto_ml/api/gate.py" afterDir="false" />
+    <list default="true" id="3ed13926-8ae4-4a87-bc72-c75390ff9ed3" name="Default Changelist" comment="alter structure">
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/GBDT_feature.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/evaluation_public.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/submit_example.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/train_sales_data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/train_search_data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/Train/train_user_reply_data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/lgb_base_0.46.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_ml/GBDT_LR/rule3_512.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/auto_ml.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/auto_ml.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_ml/tools/config_for_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_ml/tools/config_for_all.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,53 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/auto_ml/core/core_v2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4140">
-              <caret line="191" column="35" selection-start-line="191" selection-start-column="35" selection-end-line="191" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-              <folding>
-                <element signature="e#15#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/auto_ml/api/gate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-              <folding>
-                <element signature="e#15#63#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/auto_ml/tools/config_for_all.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-              <folding>
-                <element signature="e#15#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -71,6 +34,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -92,6 +58,10 @@
         <option value="$PROJECT_DIR$/auto_ml/tools/config_for_all.py" />
         <option value="$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py" />
         <option value="$PROJECT_DIR$/auto_ml/api/gate.py" />
+        <option value="$PROJECT_DIR$/../features/test.py" />
+        <option value="$PROJECT_DIR$/auto_ml/GBDT_LR/GBDT_feature.py" />
+        <option value="$PROJECT_DIR$/auto_ml/GBDT_LR/rule3_512.py" />
+        <option value="$PROJECT_DIR$/auto_ml/GBDT_LR/lgb_base_0.46.py" />
       </list>
     </option>
   </component>
@@ -123,37 +93,20 @@
               <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="docker" type="462c0819:PsiDirectoryNode" />
+              <item name="GBDT_LR" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
               <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="mopping" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="prep" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auto_ml" type="b2602c69:ProjectViewProjectNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="auto_ml" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
+              <item name="GBDT_LR" type="462c0819:PsiDirectoryNode" />
+              <item name="Train" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -168,6 +121,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ll\PycharmProjects\auto_ml\auto_ml\GBDT_LR" />
+      <recent name="C:\Users\ll\PycharmProjects\auto_ml\auto_ml\GBDT_LR\Train" />
       <recent name="C:\Users\ll\PycharmProjects\auto_ml" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -187,7 +142,49 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.lgb_base_0.46">
+    <configuration name="GBDT_feature" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="auto_ml" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_ml/GBDT_LR" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_ml/GBDT_LR/GBDT_feature.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lgb_base_0.46" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="auto_ml" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_ml/GBDT_LR" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_ml/GBDT_LR/lgb_base_0.46.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="auto_ml" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -211,6 +208,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.lgb_base_0.46" />
+        <item itemvalue="Python.GBDT_feature" />
         <item itemvalue="Python.test1" />
       </list>
     </recent_temporary>
@@ -254,12 +253,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567487087707</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="alter structure">
+      <created>1567489759277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1567489759277</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24762908" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -273,7 +278,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32911393" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32911393" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -292,8 +297,22 @@
           <line>1</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/auto_ml/GBDT_LR/GBDT_feature.py</url>
+          <line>89</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>data['model_weight']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/task_test_all.py">
@@ -301,16 +320,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/tools/retry_it.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="97" lean-forward="true" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="97" />
-          <folding>
-            <element signature="e#14#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/auto_ml/mopping/saves.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -346,13 +355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/prep/paremeter_parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/auto_ml/core/aml.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -367,13 +369,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/prep/costum_error.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/auto_ml/core/auto_ml_core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="700">
@@ -381,13 +376,6 @@
           <folding>
             <element signature="e#14#103#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python37/site-packages/xgboost/libpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
@@ -401,16 +389,6 @@
     <entry file="file://$PROJECT_DIR$/auto_ml/docker/HyperparameterHunterAssets/Heartbeat.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-165" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/docker/test1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="24" selection-end-column="1" />
-          <folding>
-            <element signature="e#23#83#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/auto_ml/docker/HyperparameterHunterAssets/Experiments/ScriptBackups/0d3d12bc-81bb-4156-9d65-1248bdb00bc9.py">
@@ -470,8 +448,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/auto_ml/core/core_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4140">
+        <state relative-caret-position="829">
           <caret line="191" column="35" selection-start-line="191" selection-start-column="35" selection-end-line="191" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/docker/test1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="24" column="1" selection-start-line="21" selection-start-column="5" selection-end-line="24" selection-end-column="1" />
+          <folding>
+            <element signature="e#23#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/tools/retry_it.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="97" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="97" />
+          <folding>
+            <element signature="e#14#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/tools/typeassert.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/prep/costum_error.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../features/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/prep/paremeter_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding>
+            <element signature="e#14#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/api/gate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#15#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -485,22 +530,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/core/mini_bridge_v2.py">
+    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python37/site-packages/xgboost/libpath.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="275">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/GBDT_LR/Train/train_user_reply_data.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/GBDT_LR/Train/submit_example.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/GBDT_LR/rule3_512.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3727">
+          <caret line="194" column="36" selection-start-line="194" selection-start-column="36" selection-end-line="194" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto_ml/GBDT_LR/lgb_base_0.46.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-368">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
           <folding>
-            <element signature="e#15#24#0" expanded="true" />
+            <element signature="e#149#168#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auto_ml/api/gate.py">
+    <entry file="file://$PROJECT_DIR$/auto_ml/GBDT_LR/GBDT_feature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="1702">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
           <folding>
-            <element signature="e#15#63#0" expanded="true" />
+            <element signature="e#15#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
